@@ -1,0 +1,13 @@
+{
+"name":"Danger Danger",
+"description":"Show a warning once you're on a production site.",
+"version":"1",
+"manifest_version":2,
+"content_scripts": [
+    {
+      "matches": ["https://www.google.hr/*"],
+      "js": ["myscript.js"],
+      "css": ["mystyles.js"]
+    }
+  ]
+}
