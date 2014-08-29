@@ -1,3 +1,7 @@
+// chrome.runtime.sendMessage({method: "getStatus"}, function(response) {
+//   console.log(response.status);
+// });
+
 var ribbonWrapper = document.createElement("div");
 ribbonWrapper.className = 'github-fork-ribbon-wrapper right fixed';
 ribbonWrapper.onclick = function(){
