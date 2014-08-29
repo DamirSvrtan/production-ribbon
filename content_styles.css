@@ -25,7 +25,7 @@
   /* Set the font */
   font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  z-index: 9999;
+  z-index: 2000000000;
   pointer-events: auto;
 
   opacity: 1;
@@ -85,7 +85,7 @@
   position: absolute;
   overflow: hidden;
   top: 0;
-  z-index: 9999;
+  z-index: 2000000000;
   pointer-events: none;
 }
 
