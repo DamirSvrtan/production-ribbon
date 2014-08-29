@@ -1,9 +1,13 @@
+/* global chrome, document, alert, console, location*/
+'use strict';
+
+/*
+Show the nice red ribbon.
+*/
 var showRibbon = function(){
   var ribbonWrapper = document.createElement("div");
   ribbonWrapper.className = 'github-fork-ribbon-wrapper right fixed';
-  ribbonWrapper.onclick = function(){
-    this.style.display='none';
-  };
+  ribbonWrapper.onclick = function(){ this.style.display='none'; };
 
   var ribbon = document.createElement("div");
   ribbon.className = 'github-fork-ribbon red';
@@ -13,21 +17,20 @@ var showRibbon = function(){
 
   var text = document.createTextNode("Production");
 
-  ribbonText.appendChild(text);
-  ribbon.appendChild(ribbonText);
-  ribbonWrapper.appendChild(ribbon);
-
-  document.body.appendChild(ribbonWrapper);
+  document.body.appendChild(ribbonWrapper)
+               .appendChild(ribbon)
+               .appendChild(ribbonText)
+               .appendChild(text);
 };
 
-
+/*
+Fetch all the marked production hostnames.
+If the current location's hostname resides inside of the array, show the ribbon.
+*/
 chrome.storage.local.get({productionURLs: []}, function (result) {
-    var productionURLs = result.productionURLs;
-    var status = false;
-    if(productionURLs.indexOf(location.host) != -1){
+    if(result.productionURLs.indexOf(location.host) != -1){
       showRibbon();
     }
-    console.log(JSON.stringify(productionURLs));
 });
 
 // chrome.runtime.sendMessage({method: "getStatus", url: location.host}, function(response) {
