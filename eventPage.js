@@ -1,9 +1,22 @@
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//     if (request.method == "getStatus")
-//       sendResponse({status: 1});
-//     else
-//       sendResponse({}); // snub them.
-// });
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  var status = false;
+  sendResponse({status: hejurl()});
+});
+
+var hejurl = function(){
+  vubi = chrome.storage.local.get({productionURLs: []}, function (result) {
+    productionURLs = result.productionURLs;
+
+    if(productionURLs.indexOf(request.url) != 1){
+      // return true;
+    }else{
+      // return false;
+    };
+    return 1;
+  });
+
+  return vubi;
+};
 
 chrome.browserAction.onClicked.addListener(function(tab){
   var parser = document.createElement('a');
