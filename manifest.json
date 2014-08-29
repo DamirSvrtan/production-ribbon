@@ -3,6 +3,9 @@
   "description":"Show a warning once you're on a production site.",
   "version":"1",
   "manifest_version":2,
+  "permissions": [
+    "storage"
+  ],
   "browser_action": {
     "default_icon": "danger-triangle-128.png"
   },
