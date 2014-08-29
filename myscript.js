@@ -1,6 +1,19 @@
-var btn = document.createElement("BUTTON")
-btn.className = 'wwz'
-var t = document.createTextNode("CLICK ME");
-btn.appendChild(t);
-//Appending to DOM
-document.body.appendChild(btn);
+var ribbonWrapper = document.createElement("div");
+ribbonWrapper.className = 'github-fork-ribbon-wrapper right fixed';
+ribbonWrapper.onclick = function(){
+  this.style.display='none';
+};
+
+var ribbon = document.createElement("div");
+ribbon.className = 'github-fork-ribbon red';
+
+var ribbonText = document.createElement("span");
+ribbonText.className = 'github-fork-ribbon-text'
+
+var text = document.createTextNode("Production");
+
+ribbonText.appendChild(text);
+ribbon.appendChild(ribbonText);
+ribbonWrapper.appendChild(ribbon);
+
+document.body.appendChild(ribbonWrapper);

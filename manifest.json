@@ -5,9 +5,9 @@
 "manifest_version":2,
 "content_scripts": [
     {
-      "matches": ["https://www.google.hr/*"],
+      "matches": ["<all_urls>"],
       "js": ["myscript.js"],
-      "css": ["mystyles.js"]
+      "css": ["mystyles.css"]
     }
   ]
 }
