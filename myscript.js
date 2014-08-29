@@ -19,11 +19,11 @@ Add the nice red ribbon to the page.
 */
 var displayRibbon = function(){
   // if display is set to none;
-  if(getRibbon() === null){
-    console.log('ribon je null');
-    showRibbon();
-  }else{
+  if(document.getElementById('production-danger') !== null){
     console.log('ribon NIJE null');
+    document.getElementById('production-danger').style.display = '';
+  }else{
+    console.log('ribon JE null');
     createRibbon();
   }
 };
@@ -53,7 +53,7 @@ var createRibbon = function(){
 };
 
 var hideRibbon = function(){
-  getRibbon().style.display = 'none';
+  document.getElementById('production-danger').style.display = 'none';
 };
 
 /*
@@ -70,6 +70,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if(request.method === 'displayRibbon'){
     displayRibbon();
   }else if(request.method === 'hideRibbon'){
-    displayRibbon();
+    hideRibbon();
   }
 });
