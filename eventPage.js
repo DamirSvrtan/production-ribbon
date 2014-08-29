@@ -12,6 +12,10 @@ console.log('eventpage');
 //   });
 // });
 
+function setInitialIcon(){
+
+}
+
 chrome.browserAction.onClicked.addListener(function(tab){
   var parser = document.createElement('a');
   parser.href = tab.url;
@@ -26,19 +30,17 @@ chrome.browserAction.onClicked.addListener(function(tab){
 
     if(index == -1){
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-          chrome.tabs.sendMessage(tabs[0].id, {method: "showRibbon"}, function(response) {});
+          chrome.tabs.sendMessage(tabs[0].id, {method: "displayRibbon"}, function(response) {});
       });
       productionURLs.push(parser.hostname);
-      icon_path = 'danger-triangle-red-128.png';
+      setRedIcon(tab);
     }else{
-      icon_path = 'danger-triangle-128.png';
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+          chrome.tabs.sendMessage(tabs[0].id, {method: "hideRibbon"}, function(response) {});
+      });
+      setBlackIcon(tab);
       productionURLs.splice(index, 1);
     }
-
-    chrome.browserAction.setIcon({
-      path:  icon_path,
-      tabId: tab.id
-    });
 
     chrome.storage.local.set({productionURLs: productionURLs}, function(){
       console.log(JSON.stringify(productionURLs));
@@ -47,3 +49,21 @@ chrome.browserAction.onClicked.addListener(function(tab){
   });
   }
 );
+
+var BLACK_ICON_PATH = 'danger-triangle-128.png';
+var RED_ICON_PATH = 'danger-triangle-red-128.png';
+
+function setBlackIcon(tab){
+  setIcon(BLACK_ICON_PATH, tab);
+}
+
+function setRedIcon(tab){
+  setIcon(RED_ICON_PATH, tab);
+}
+
+function setIcon(iconPath, tab){
+  chrome.browserAction.setIcon({
+    path: {'38': iconPath},
+    tabId: tab.id
+  });
+}
