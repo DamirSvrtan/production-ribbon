@@ -12,8 +12,29 @@ console.log('eventpage');
 //   });
 // });
 
-function setInitialIcon(){
+/*
+Set the initial icon.
+If the tab hostname is already marked, it will set it to red.
+*/
+function setInitialIcon(tab){
+  chrome.storage.local.get({productionURLs: []}, function (result) {
+    var index = result.productionURLs.indexOf(getHostname(tab));
+    if(index !== -1){
+      setRedIcon(tab);
+    }
+  });
+}
 
+chrome.tabs.onUpdated.addListener(function(tabId , info, tab) {
+  if (info.status === "loading") {
+    setInitialIcon(tab);
+  }
+});
+
+function getHostname(tab){
+  var parser = document.createElement('a');
+  parser.href = tab.url;
+  return parser.hostname;
 }
 
 chrome.browserAction.onClicked.addListener(function(tab){
@@ -28,7 +49,7 @@ chrome.browserAction.onClicked.addListener(function(tab){
     var index = productionURLs.indexOf(parser.hostname);
     var icon_path;
 
-    if(index == -1){
+    if(index === -1){
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
           chrome.tabs.sendMessage(tabs[0].id, {method: "displayRibbon"}, function(response) {});
       });
