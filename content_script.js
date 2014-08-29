@@ -6,7 +6,6 @@ Notify the background script that the tab has loaded.
 */
 chrome.runtime.sendMessage({method: "tabLoaded", hostname: location.host}, function(response) {});
 
-
 /*
 Fetch the ribbon wrapper.
 */
@@ -18,12 +17,11 @@ var getRibbon = function(){
 Add the nice red ribbon to the page.
 */
 var displayRibbon = function(){
+  var ribbonWrapper = document.getElementById('production-danger');
   // if display is set to none;
-  if(document.getElementById('production-danger') !== null){
-    console.log('ribon NIJE null');
-    document.getElementById('production-danger').style.display = '';
+  if(ribbonWrapper !== null){
+    ribbonWrapper.style.display = '';
   }else{
-    console.log('ribon JE null');
     createRibbon();
   }
 };
