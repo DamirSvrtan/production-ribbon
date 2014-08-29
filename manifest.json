@@ -1,13 +1,19 @@
 {
-"name":"Danger Danger",
-"description":"Show a warning once you're on a production site.",
-"version":"1",
-"manifest_version":2,
-"content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["myscript.js"],
-      "css": ["mystyles.css"]
-    }
-  ]
+  "name":"Danger Danger",
+  "description":"Show a warning once you're on a production site.",
+  "version":"1",
+  "manifest_version":2,
+  "browser_action": {
+    "default_icon": "danger-triangle-128.png"
+  },
+  "background": {
+    "scripts": ["eventPage.js"]
+  },
+  "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["myscript.js"],
+        "css": ["mystyles.css"]
+      }
+    ]
 }
