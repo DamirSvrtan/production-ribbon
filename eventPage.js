@@ -31,37 +31,43 @@ function getHostname(tab){
   return parser.hostname;
 }
 
+/*
+Activate or deactivate production-danger on icon click.
+*/
 chrome.browserAction.onClicked.addListener(function(tab){
   var tabHostname = getHostname(tab);
 
   chrome.storage.local.get({productionURLs: []}, function (result) {
-
     var productionURLs = result.productionURLs;
-
     var index = productionURLs.indexOf(tabHostname);
-    var icon_path;
 
     if(index === -1){
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-          chrome.tabs.sendMessage(tabs[0].id, {method: "displayRibbon"}, function(response) {});
-      });
+      activateProductionDangerOnTab(tab);
       productionURLs.push(tabHostname);
-      setRedIcon(tab);
     }else{
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-          chrome.tabs.sendMessage(tabs[0].id, {method: "hideRibbon"}, function(response) {});
-      });
-      setBlackIcon(tab);
+      deactivateProductionDangerOnTab(tab);
       productionURLs.splice(index, 1);
     }
 
     chrome.storage.local.set({productionURLs: productionURLs}, function(){
       console.log(JSON.stringify(productionURLs));
     });
-
   });
-  }
-);
+});
+
+function activateProductionDangerOnTab(tab){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+    chrome.tabs.sendMessage(tab.id, {method: "displayRibbon"}, function(response) {});
+  });
+  setRedIcon(tab);
+}
+
+function deactivateProductionDangerOnTab(tab){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+    chrome.tabs.sendMessage(tab.id, {method: "hideRibbon"}, function(response) {});
+  });
+  setBlackIcon(tab);
+}
 
 var BLACK_ICON_PATH = 'danger-triangle-128.png';
 var RED_ICON_PATH = 'danger-triangle-red-128.png';
