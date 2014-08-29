@@ -69,8 +69,8 @@ function deactivateProductionDangerOnTab(tab){
   setBlackIcon(tab);
 }
 
-var BLACK_ICON_PATH = 'danger-triangle-128.png';
-var RED_ICON_PATH = 'danger-triangle-red-128.png';
+var BLACK_ICON_PATH = 'black-icon.png';
+var RED_ICON_PATH = 'red-icon.png';
 
 function setBlackIcon(tab){
   setIcon(BLACK_ICON_PATH, tab);
