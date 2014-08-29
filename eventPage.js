@@ -25,6 +25,9 @@ chrome.browserAction.onClicked.addListener(function(tab){
     var icon_path;
 
     if(index == -1){
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+          chrome.tabs.sendMessage(tabs[0].id, {method: "showRibbon"}, function(response) {});
+      });
       productionURLs.push(parser.hostname);
       icon_path = 'danger-triangle-red-128.png';
     }else{

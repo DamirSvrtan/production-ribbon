@@ -30,7 +30,15 @@ If the current location's hostname resides inside of the array, show the ribbon.
 chrome.storage.local.get({productionURLs: []}, function (result) {
     if(result.productionURLs.indexOf(location.host) != -1){
       showRibbon();
-    }
+    };
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if(request.method === 'showRibbon'){
+    showRibbon();
+  }else{
+    alert('else');
+  }
 });
 
 // chrome.runtime.sendMessage({method: "getStatus", url: location.host}, function(response) {
