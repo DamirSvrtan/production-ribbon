@@ -1,4 +1,4 @@
-# Production danger
+# Production ribbon
 
 Chrome extension for showing a production ribbon when browsing through your production sites.
 It's language agnostic, just mark all your production sites and the ribbon will appear on all of them.
