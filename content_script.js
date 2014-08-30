@@ -1,6 +1,8 @@
 /* global chrome, document, alert, console, location*/
 'use strict';
 
+var RIBBON_WRAPPER_ID = 'production-danger';
+
 /*
 Notify the background script that the tab has loaded.
 */
@@ -10,14 +12,15 @@ chrome.runtime.sendMessage({method: "tabLoaded", hostname: location.host}, funct
 Fetch the ribbon wrapper.
 */
 var getRibbon = function(){
-  document.getElementById('production-danger');
+  document.getElementById(RIBBON_WRAPPER_ID);
 };
 
 /*
-Add the nice red ribbon to the page.
+Shows the ribbon if it existed.
+If not, creates a new one and injects it to the current page.
 */
 var displayRibbon = function(){
-  var ribbonWrapper = document.getElementById('production-danger');
+  var ribbonWrapper = document.getElementById(RIBBON_WRAPPER_ID);
   // if display is set to none;
   if(ribbonWrapper !== null){
     ribbonWrapper.style.display = '';
@@ -26,10 +29,16 @@ var displayRibbon = function(){
   }
 };
 
+/*
+Remove display none from the ribbon.
+*/
 var showRibbon = function(){
-  document.getElementById('production-danger').style.display = '';
+  document.getElementById(RIBBON_WRAPPER_ID).style.display = '';
 };
 
+/*
+Creates a new ribbon.
+*/
 var createRibbon = function(){
   var ribbonWrapper = document.createElement("div");
   ribbonWrapper.className = 'github-fork-ribbon-wrapper right fixed';
@@ -50,8 +59,11 @@ var createRibbon = function(){
                .appendChild(text);
 };
 
+/*
+Sets display none on the ribbon.
+*/
 var hideRibbon = function(){
-  document.getElementById('production-danger').style.display = 'none';
+  document.getElementById(RIBBON_WRAPPER_ID).style.display = 'none';
 };
 
 /*

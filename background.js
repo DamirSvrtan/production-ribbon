@@ -55,17 +55,21 @@ chrome.browserAction.onClicked.addListener(function(tab){
   });
 });
 
+/*
+Sends a message to the content script to display
+the ribbon and calls to set the red icon.
+*/
 function activateProductionDangerOnTab(tab){
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-    chrome.tabs.sendMessage(tab.id, {method: "displayRibbon"}, function(response) {});
-  });
+  chrome.tabs.sendMessage(tab.id, {method: "displayRibbon"}, function(response) {});
   setRedIcon(tab);
 }
 
+/*
+Sends a message to the content script to hide
+the ribbon and calls to set the black icon.
+*/
 function deactivateProductionDangerOnTab(tab){
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-    chrome.tabs.sendMessage(tab.id, {method: "hideRibbon"}, function(response) {});
-  });
+  chrome.tabs.sendMessage(tab.id, {method: "hideRibbon"}, function(response) {});
   setBlackIcon(tab);
 }
 
@@ -82,6 +86,7 @@ function setRedIcon(tab){
 
 function setIcon(iconPath, tab){
   chrome.browserAction.setIcon({
+    // 38 is the larger icon scale size
     path: {'38': iconPath},
     tabId: tab.id
   });
