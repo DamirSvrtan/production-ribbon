@@ -1,5 +1,13 @@
-/* global chrome, document, alert, console, location*/
+/* global chrome, document, alert, console, location, $*/
 'use strict';
+
+$(document).on('page:load', function(){
+  chrome.storage.local.get({productionURLs: []}, function (result) {
+      if(result.productionURLs.indexOf(location.host) !== -1){
+        displayRibbon();
+      }
+  });
+});
 
 var RIBBON_WRAPPER_ID = 'production-danger';
 
