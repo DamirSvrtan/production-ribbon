@@ -14,7 +14,7 @@ var RIBBON_WRAPPER_ID = 'production-danger';
 /*
 Notify the background script that the tab has loaded.
 */
-chrome.runtime.sendMessage({method: "tabLoaded", hostname: location.host}, function(response) {});
+chrome.runtime.sendMessage({method: "tabLoaded"}, function(response) {});
 
 /*
 Fetch the ribbon wrapper.
