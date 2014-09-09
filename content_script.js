@@ -1,11 +1,11 @@
 /* global chrome, document, alert, console, location, $*/
 'use strict';
 
-$(document).on('page:load', function(){
+document.addEventListener("page:load", function(){
   chrome.storage.local.get({productionURLs: []}, function (result) {
-      if(result.productionURLs.indexOf(location.host) !== -1){
-        displayRibbon();
-      }
+    if(result.productionURLs.indexOf(location.host) !== -1){
+      displayRibbon();
+    }
   });
 });
 
