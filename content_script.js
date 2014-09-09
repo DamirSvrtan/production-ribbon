@@ -75,8 +75,8 @@ var hideRibbon = function(){
 };
 
 /*
-Fetch all the marked production hostnames.
-If the current location's hostname resides inside of the array, show the ribbon.
+Fetch all the marked production hosts.
+If the current location's host resides inside of the array, show the ribbon.
 */
 chrome.storage.local.get({productionURLs: []}, function (result) {
     if(result.productionURLs.indexOf(location.host) !== -1){

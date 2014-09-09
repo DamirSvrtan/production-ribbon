@@ -10,11 +10,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 /*
 Set the initial icon.
-If the tab hostname is already marked, it will set it to red.
+If the tab host is already marked, it will set it to red.
 */
 function setInitialIcon(tab){
   chrome.storage.local.get({productionURLs: []}, function (result) {
-    var index = result.productionURLs.indexOf(getHostname(tab));
+    var index = result.productionURLs.indexOf(getHost(tab));
     console.log(tab.url);
     if(index !== -1){
       setRedIcon(tab);
@@ -23,27 +23,27 @@ function setInitialIcon(tab){
 }
 
 /*
-Fetch the hostname of the tab.
+Fetch the host of the tab.
 */
-function getHostname(tab){
+function getHost(tab){
   var parser = document.createElement('a');
   parser.href = tab.url;
-  return parser.hostname;
+  return parser.host;
 }
 
 /*
 Activate or deactivate production-danger on icon click.
 */
 chrome.browserAction.onClicked.addListener(function(tab){
-  var tabHostname = getHostname(tab);
+  var tabHost = getHost(tab);
 
   chrome.storage.local.get({productionURLs: []}, function (result) {
     var productionURLs = result.productionURLs;
-    var index = productionURLs.indexOf(tabHostname);
+    var index = productionURLs.indexOf(tabHost);
 
     if(index === -1){
       activateProductionDangerOnTab(tab);
-      productionURLs.push(tabHostname);
+      productionURLs.push(tabHost);
     }else{
       deactivateProductionDangerOnTab(tab);
       productionURLs.splice(index, 1);
